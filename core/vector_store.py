@@ -45,6 +45,9 @@ logger = logging.getLogger(__name__)
 
 # === Configuration ===
 COLLECTION_NAME = "scientific_articles"
+<<<<<<< HEAD
+EMBEDDING_MODEL = "intfloat/e5-large-v2"  # 1024 dimensions, multi-lingual dense embeddings
+=======
 EMBEDDING_MODEL = "BAAI/bge-m3"  # 8192 context, 1024-d, multilingual, hybrid-capable
 DENSE_DIM = 1024
 MAX_LENGTH = 8192  # full BGE-M3 context window
@@ -52,6 +55,7 @@ MAX_LENGTH = 8192  # full BGE-M3 context window
 # Named vectors in Qdrant
 DENSE_VECTOR = "dense"
 SPARSE_VECTOR = "sparse"
+>>>>>>> 8c185e877e0f017259830e3ea4b2edb8fb218797
 
 # Qdrant Database Settings (Local or Cloud)
 QDRANT_PATH = os.environ.get("QDRANT_PATH", "./qdrant_db")
@@ -309,7 +313,21 @@ class VectorStore:
             return 0
 
         logger.info(f"Embedding {len(chunks)} chunks...")
+<<<<<<< HEAD
+        
+        # Extract texts for batch embedding (with prefix for E5)
+        model_lower = self.embedding_model.lower()
+        if "e5" in model_lower:
+            texts_to_embed = [f"passage: {chunk.content}" for chunk in chunks]
+        elif "nomic" in model_lower:
+            texts_to_embed = [f"search_document: {chunk.content}" for chunk in chunks]
+        else:
+            texts_to_embed = [chunk.content for chunk in chunks]
+        
+        # Batch embed
+=======
 
+>>>>>>> 8c185e877e0f017259830e3ea4b2edb8fb218797
         all_points = []
         for i in range(0, len(chunks), batch_size):
             batch = chunks[i:i + batch_size]
@@ -479,6 +497,33 @@ class VectorStore:
             )
 
         query_filter = Filter(must=must_conditions) if must_conditions else None
+<<<<<<< HEAD
+        
+        # Embed query with proper prefix for E5
+        model_lower = self.embedding_model.lower()
+        query_to_embed = query
+        if "e5" in model_lower:
+            query_to_embed = f"query: {query}"
+        elif "nomic" in model_lower:
+            query_to_embed = f"search_query: {query}"
+        elif "bge" in model_lower and "m3" not in model_lower:
+            query_to_embed = f"Represent this sentence for searching relevant passages: {query}"
+            
+        # Embed query
+        query_vector = self.model.encode(
+            query_to_embed, normalize_embeddings=True
+        ).tolist()
+        
+        # Search
+        results = self.client.query_points(
+            collection_name=self.collection_name,
+            query=query_vector,
+            query_filter=query_filter,
+            limit=n_results,
+            with_payload=True,
+        )
+        
+=======
 
         dense_vec, sparse_vec = self._embed_query(query)
 
@@ -517,6 +562,7 @@ class VectorStore:
                 label="Qdrant search",
             )
 
+>>>>>>> 8c185e877e0f017259830e3ea4b2edb8fb218797
         return [
             {
                 "content": point.payload.get("content", ""),

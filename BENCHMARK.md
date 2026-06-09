@@ -27,8 +27,8 @@ Untuk mengevaluasi ketangguhan sistem pencarian secara komprehensif, pengujian (
 ## Hasil Benchmarking
 
 | Ukuran Chunk | Overlap | Metode Chunking | Model Embedding | Dukungan Bahasa | Tipe Query Uji | Top-K | Filter Metadata | Hit Rate | Latensi | Ukuran Index DB | Catatan |
-|:---:|:---:|:---|:---|:---|:---|:---:|:---:|:---:|:---:|:---:|:---|
-| 1000 | 200 | Hybrid | BAAI/bge-m3 | Multi-bahasa (>100) | Semantic/Paraphrased | 5 | Ya (DOI) | - | - | - | *BGE-M3: Juara untuk kueri lintas bahasa* |
+||:---:|:---|:---|:---|:---|:---:|:---:|:---:|:---:|:---:|:---|
+| ~742 chars (±200 token) | ~742 chars (±200 token) | Hybrid (semantic-aware) |E5-Large-V2| Multi-bahasa (>100) | TBD | -| Ya (DOI) | TBD (Test) | 99.5 | TBD | 	E5-Large: Excellent semantic understanding, slow on CPU |
 | 500 | 100 | Hybrid | BAAI/bge-m3 | Multi-bahasa (>100) | Reasoning/Complex | 10 | Ya (DOI) | - | - | - | *Eksperimen: Chunk kecil, Top-K besar* |
 | 1000 | 200 | Statis | sentence-transformers/all-MiniLM-L6-v2 | Hanya Inggris | Factoid | 5 | Tidak | - | - | - | *MiniLM: Sangat cepat tapi buruk di bahasa Indonesia* |
 | 1000 | 200 | Semantic | nomic-ai/nomic-embed-text-v1.5 | Mayoritas Inggris | Conversational | 5 | Ya (DOI) | - | - | - | *Nomic: Konteks sangat panjang* |

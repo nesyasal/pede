@@ -248,7 +248,7 @@ Examples:
         default="scientific_articles",
         help="Qdrant collection name (default: scientific_articles)",
     )
-    parser.add_argument(
+    parser.add_argument( 
         "--chunk-size",
         type=int,
         default=CHUNK_SIZE,
