@@ -1,6 +1,6 @@
 # Eksperimen Konfigurasi Chunking
 
-## 1. Tujuan 
+## 1. Tujuan
 
 Menjelaskan hasil pengujian konfigurasi chunking pada satu dokumen markdown ilmiah. Tujuan utama:
 
@@ -43,7 +43,7 @@ Menjelaskan hasil pengujian konfigurasi chunking pada satu dokumen markdown ilmi
 | ---------: | ------------: | -----------: | ---------: | ---------: | ---------: | ----------: | -----------: | ----------------: | ------------: | --------------: |
 |        500 |           100 |          176 |      352.7 |        109 |        498 |         148 |            4 |                23 |             1 |              14 |
 |        750 |           150 |          118 |      537.0 |        130 |        745 |         102 |            3 |                12 |             1 |              14 |
-|       1000 |           200 |           86 |      742.9 |        130 |        994 |          73 |            2 |                10 |             1 |              14 |
+|       1000 |           200 |           87 |      742.9 |        130 |        994 |          73 |            2 |                10 |             1 |              14 |
 |       1250 |           250 |           69 |      940.8 |        130 |       1246 |          58 |            2 |                 9 |             0 |              14 |
 |       1500 |           300 |           60 |     1074.9 |        130 |       1496 |          50 |            2 |                 7 |             1 |              14 |
 
@@ -70,7 +70,7 @@ Menjelaskan hasil pengujian konfigurasi chunking pada satu dokumen markdown ilmi
 
 ### Mengapa ini direkomendasikan?
 
-- Jumlah chunk moderat: `86` titik data.
+- Jumlah chunk moderat: `87` titik data.
 - Ukuran rata-rata `742.9` karakter: mendekati rentang ideal.
 - Ukuran maksimal masih di bawah `1000` karakter.
 - Overlap `20%` menjaga kesinambungan konteks antar chunk.
@@ -122,7 +122,6 @@ Catatan metrik: `avg_time_s` adalah rata-rata waktu pencarian per run (detik) da
 
 ### Catatan tambahan
 
--  `top_k = 1` (cepat dan fokus pada nilai R2).
+- `top_k = 1` (cepat dan fokus pada nilai R2).
 - Untuk yang lebih informatif dan tahan banting terhadap variasi query: `top_k = 3` (direkomendasikan untuk demo RAG karena menyeimbangkan presisi dan konteks).
 - Untuk debugging atau analisis mendalam: `top_k = 5`.
-
